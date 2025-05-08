@@ -1,1 +1,22 @@
-<p>url-short-form works!</p>
+<h1 class="title">Acortador de URL</h1>
+
+<div class="form-container">
+  <form [formGroup]="urlForm" (ngSubmit)="shortenUrl()">
+    <div class="input-container">
+      <mat-form-field>
+        <mat-label>Ingresa un Url para acortar</mat-label>
+        <input matInput formControlName="url" placeholder="https://www.google.com">
+        <mat-error *ngIf="urlForm.get('url')?.hasError('required')">
+          URL es requerida
+        </mat-error>
+        <mat-error *ngIf="urlForm.get('url')?.hasError('pattern')">
+          Formato de URL inválido. Debe comenzar con http:// o https://
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!urlForm.valid">Acortar</button>
+    </div>
+  </form>
+</div>

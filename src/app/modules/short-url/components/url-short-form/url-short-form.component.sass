@@ -1,0 +1,70 @@
+.title
+  text-align: center
+  margin-bottom: 20px
+  color: #3f51b5
+  font-size: 28px
+  font-weight: 500
+  margin-top: 2rem
+
+.form-container
+  display: block
+  width: 100%
+  max-width: 800px
+  margin: 0 auto
+  padding: 0 15px
+  box-sizing: border-box
+
+form
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-wrap: nowrap
+  width: 100%
+
+.input-container
+  flex: 0 0 60%
+  max-width: 60%
+  transition: all 0.3s ease
+
+.button-container
+  display: flex
+  align-items: center
+  margin-left: 10px
+
+mat-form-field
+  width: 100%
+
+button
+  min-width: 100px
+
+// Móviles (hasta 576px)
+@media (max-width: 576px)
+  form
+    flex-direction: column
+    align-items: stretch
+    
+  .input-container
+    flex: 0 0 100%
+    max-width: 100%
+    margin-bottom: 15px
+    margin-right: 0
+    
+  .button-container
+    margin-left: 0
+    width: 100%
+    
+  button
+    width: 100%
+
+// Tablets (577px hasta 768px)
+@media (min-width: 577px) and (max-width: 768px)
+  form
+    flex-wrap: wrap
+    
+  .input-container
+    flex: 0 0 70%
+    max-width: 70%
+    
+  .button-container
+    flex: 0 0 25%
+    max-width: 25%
