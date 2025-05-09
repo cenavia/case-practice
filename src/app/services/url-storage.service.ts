@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
 
 export interface ShortUrl {
   id: number;
@@ -13,6 +14,9 @@ export interface ShortUrl {
 })
 export class UrlStorageService {
   private readonly STORAGE_KEY = 'shortUrls';
+  private urlsSubject = new Subject<ShortUrl[]>();
+  
+  public urls$: Observable<ShortUrl[]> = this.urlsSubject.asObservable();
 
   constructor() { }
 
@@ -41,6 +45,9 @@ export class UrlStorageService {
     urls.push(newUrl);
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(urls));
     
+    // Notify subscribers that data has changed
+    this.urlsSubject.next(urls);
+    
     return newUrl;
   }
 
@@ -55,6 +62,10 @@ export class UrlStorageService {
     
     if (filteredUrls.length !== initialLength) {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filteredUrls));
+      
+      // Notify subscribers that data has changed
+      this.urlsSubject.next(filteredUrls);
+      
       return true;
     }
     
@@ -79,6 +90,10 @@ export class UrlStorageService {
     if (url) {
       url.visits += 1;
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(urls));
+      
+      // Notify subscribers that data has changed
+      this.urlsSubject.next(urls);
+      
       return url;
     }
     
@@ -90,5 +105,8 @@ export class UrlStorageService {
    */
   clearAllUrls(): void {
     localStorage.removeItem(this.STORAGE_KEY);
+    
+    // Notify subscribers that data has been cleared
+    this.urlsSubject.next([]);
   }
 }
