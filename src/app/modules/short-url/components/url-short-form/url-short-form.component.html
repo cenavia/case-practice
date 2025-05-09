@@ -16,7 +16,10 @@
     </div>
 
     <div class="button-container">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!urlForm.valid">Acortar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!urlForm.valid || isLoading">
+        <span *ngIf="!isLoading">Acortar</span>
+        <span *ngIf="isLoading">Procesando...</span>
+      </button>
     </div>
   </form>
 </div>
