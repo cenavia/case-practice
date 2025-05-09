@@ -37,6 +37,52 @@ mat-form-field
 button
   min-width: 100px
 
+// Estilos del contenedor de resultados
+.result-container
+  width: 100%
+  max-width: 800px
+  margin: 20px auto 0
+  padding: 15px
+  box-sizing: border-box
+  border-radius: 4px
+  transition: all 0.3s ease
+
+.error-message
+  color: #f44336
+  padding: 10px
+  border-radius: 4px
+  background-color: rgba(244, 67, 54, 0.1)
+  margin-bottom: 15px
+
+.success-message
+  padding: 15px
+  border-radius: 4px
+  background-color: rgba(76, 175, 80, 0.1)
+  
+  h3
+    margin-top: 0
+    color: #4caf50
+    font-weight: 500
+
+.url-box
+  display: flex
+  align-items: center
+  justify-content: space-between
+  background-color: #f5f5f5
+  padding: 10px 15px
+  border-radius: 4px
+  margin-top: 10px
+  
+  a
+    color: #3f51b5
+    text-decoration: none
+    font-weight: 500
+    word-break: break-all
+    flex: 1
+    
+    &:hover
+      text-decoration: underline
+
 // Móviles (hasta 576px)
 @media (max-width: 576px)
   form

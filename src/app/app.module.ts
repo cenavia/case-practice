@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ShortUrlModule } from './modules/short-url/short-url.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ShortUrlModule } from './modules/short-url/short-url.module';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    ShortUrlModule
+    ShortUrlModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

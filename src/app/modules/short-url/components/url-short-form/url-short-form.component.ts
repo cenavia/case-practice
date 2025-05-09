@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UrlShortService } from '../../../../services/url-short.service';
 
 @Component({
   selector: 'url-short-form',
@@ -9,7 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class UrlShortFormComponent {
   urlForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder, 
+    private urlShortService: UrlShortService
+  ) {
     this.urlForm = this.fb.group({
       url: ['', [Validators.required, Validators.pattern('https?://.+')]]
     });
@@ -18,7 +22,12 @@ export class UrlShortFormComponent {
   shortenUrl() {
     if (this.urlForm.valid) {
       console.log('URL to shorten:', this.urlForm.value.url);
-      // Here you would call a service to shorten the URL
+      this.urlShortService.getUrlShort(this.urlForm.value.url)
+        .subscribe({
+          next: (response) => {
+            console.log('Short URL:', response.shortUrl);
+          },
+        });
     }
   }
 }
