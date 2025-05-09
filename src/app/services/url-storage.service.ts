@@ -14,11 +14,15 @@ export interface ShortUrl {
 })
 export class UrlStorageService {
   private readonly STORAGE_KEY = 'shortUrls';
+  private readonly SHORT_URL_BASE = 'https://short-url-9b4i.onrender.com/s/';
   private urlsSubject = new Subject<ShortUrl[]>();
   
   public urls$: Observable<ShortUrl[]> = this.urlsSubject.asObservable();
 
-  constructor() { }
+  constructor() {
+    // Migrate existing URLs to ensure they use the correct format
+    this.migrateExistingUrls();
+  }
 
   /**
    * Get all shortened URLs from local storage
@@ -108,5 +112,32 @@ export class UrlStorageService {
     
     // Notify subscribers that data has been cleared
     this.urlsSubject.next([]);
+  }
+
+  /**
+   * Migrate existing URLs to ensure they use the correct format with /s/ path
+   */
+  private migrateExistingUrls(): void {
+    const urls = this.getAllUrls();
+    let needsUpdate = false;
+    
+    urls.forEach(url => {
+      // Check if the URL needs to be updated to use the /s/ format
+      if (!url.shortUrl.includes('/s/')) {
+        // Extract the short code from the old URL
+        const parts = url.shortUrl.split('/');
+        const shortCode = parts[parts.length - 1];
+        
+        // Update to the new format
+        url.shortUrl = `${this.SHORT_URL_BASE}${shortCode}`;
+        needsUpdate = true;
+      }
+    });
+    
+    // Save updated URLs if any changes were made
+    if (needsUpdate) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(urls));
+      this.urlsSubject.next(urls);
+    }
   }
 }

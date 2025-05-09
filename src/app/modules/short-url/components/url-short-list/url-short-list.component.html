@@ -16,7 +16,7 @@
       <ng-container matColumnDef="shortenedUrl">
         <th mat-header-cell *matHeaderCellDef>Shortened URL</th>
         <td mat-cell *matCellDef="let element" class="url-cell">
-          <a [href]="element.shortUrl" target="_blank" class="url-link">{{ element.shortUrl }}</a>
+          <a [href]="element.shortUrl" target="_blank" class="url-link" (click)="visitUrl($event, element.id, element.shortUrl)">{{ element.shortUrl }}</a>
         </td>
       </ng-container>
       
@@ -69,7 +69,7 @@
           <div class="url-field">
             <h3>Shortened URL</h3>
             <div class="url-container">
-              <a [href]="element.shortUrl" target="_blank" class="url-link">{{ element.shortUrl }}</a>
+              <a [href]="element.shortUrl" target="_blank" class="url-link" (click)="visitUrl($event, element.id, element.shortUrl)">{{ element.shortUrl }}</a>
             </div>
           </div>
 

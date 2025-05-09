@@ -47,4 +47,24 @@ export class UrlShortListComponent implements OnInit, OnDestroy {
     this.urlStorageService.deleteUrl(item.id);
     // No need to manually refresh since we're subscribed to changes
   }
+
+  incrementVisits(id: number): void {
+    // Incrementar el contador de visitas
+    this.urlStorageService.incrementVisits(id);
+    // No es necesario actualizar manualmente ya que estamos suscritos a los cambios
+  }
+
+  visitUrl(event: MouseEvent, id: number, url: string): void {
+    // Prevenir el comportamiento por defecto del enlace
+    event.preventDefault();
+    
+    // Incrementar el contador de visitas
+    this.urlStorageService.incrementVisits(id);
+    
+    // Abrir el enlace en una nueva pestaña después de un pequeño retraso
+    // para asegurar que el contador se actualice
+    setTimeout(() => {
+      window.open(url, '_blank');
+    }, 100);
+  }
 }
